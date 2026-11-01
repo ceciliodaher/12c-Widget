@@ -1,0 +1,48 @@
+diff --git a/src/ui/calculator-view.js b/src/ui/calculator-view.js
+index 72f2365..b33a825 100644
+--- a/src/ui/calculator-view.js
++++ b/src/ui/calculator-view.js
+@@ -61,18 +61,18 @@ function buildBody(svg, G) {
+   el('rect', { x: 5, y: 5, width: 130, height: 145, rx: 3, fill: '#2a2620' }, lg);
+   el('rect', { x: 9, y: 9, width: 122, height: 137, rx: 2, fill: '#0e0d0c' }, lg);
+   el('circle', { cx: 70, cy: 66, r: 46, fill: '#0b0b0a', stroke: '#c7ad6a', 'stroke-width': 3 }, lg);
+-  el('text', { x: 70, y: 84, 'text-anchor': 'middle', 'font-size': 58, 'font-style': 'italic', 'font-weight': 700,
+-    'font-family': FONT, fill: '#d9bd78' }, lg, 'hp');
++  el('text', { x: 70, y: 84, 'text-anchor': 'middle', 'font-size': 44, 'font-style': 'italic', 'font-weight': 700,
++    'font-family': FONT, fill: '#d9bd78' }, lg, '12c');
+   el('rect', { x: 14, y: 116, width: 112, height: 26, fill: '#0b0b0a', stroke: '#c7ad6a', 'stroke-width': 2 }, lg);
+   el('text', { x: 70, y: 137, 'text-anchor': 'middle', 'font-size': 23, 'font-weight': 700, 'font-family': FONT,
+-    fill: '#d9bd78', 'letter-spacing': 1 }, lg, '12C');
++    fill: '#d9bd78', 'letter-spacing': 1 }, lg, 'RPN');
+   // keyboard area
+   el('rect', { x: 20, y: 235, width: W - 40, height: 535, fill: '#0d0d0c' }, svg);
+   el('rect', { x: 34, y: 246, width: W - 66, height: 526, rx: 2, fill: 'none', stroke: '#3b3120', 'stroke-width': 1.5 }, svg);
+   el('rect', { x: W - 33, y: 246, width: 3, height: 526, fill: '#9c7a3c' }, svg);
+   el('rect', { x: 34, y: 769, width: W - 64, height: 3, fill: '#9c7a3c' }, svg);
+   el('text', { x: 60, y: 763, 'font-size': 17, 'font-weight': 600, 'font-family': FONT, fill: '#a98a4a',
+-    'letter-spacing': 11 }, svg, 'HEWLETT·PACKARD');
++    'letter-spacing': 11 }, svg, 'FINANCIAL·CALCULATOR');
+   const barX = G.keyX(6) + 40;
+   el('rect', { x: barX, y: 754, width: W - 40 - barX, height: 10, fill: '#8f7538' }, svg);
+ }
+@@ -147,7 +147,7 @@ function buildKey(keysLayer, k, G) {
+ 
+ // The SVG is rebuilt from scratch when the width changes (normal 1280, wider when stretched).
+ export function createCalculatorView(container) {
+-  const svg = el('svg', { preserveAspectRatio: 'xMidYMid meet', class: 'calculator', role: 'img', 'aria-label': 'HP 12C' });
++  const svg = el('svg', { preserveAspectRatio: 'xMidYMid meet', class: 'calculator', role: 'img', 'aria-label': '12c' });
+   let G, lcd, keys, last = null;
+   function build(w) {
+     G = makeGeometry(w);
+diff --git a/sw.js b/sw.js
+index b5eb8bb..abeecea 100644
+--- a/sw.js
++++ b/sw.js
+@@ -1,6 +1,6 @@
+ // VERSION is stamped automatically from the precached files' contents: run `npm run stamp` before every deploy
+ // (tests fail when it is stale).
+-const VERSION = 'vf3d215f4dd';
++const VERSION = 'v8b91cf6e97';
+ const CACHE = `hp12c-${VERSION}`;
+ const PRECACHE = [
+   './',

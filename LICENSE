@@ -1,0 +1,41 @@
+MIT License
+
+Copyright (c) 2026 Cecílio Elias Daher
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+This license covers the code written for this project (web/mac/, web/tests/,
+macos/ and the documentation). The calculator engine comes from
+https://github.com/malufloyd/hp12c, which declares no license; it is NOT part
+of this repository and NOT covered by this license. web/fetch-upstream.sh
+downloads it into web/upstream/ at a pinned commit and applies
+web/upstream.patch; see web/UPSTREAM.md. The decimal.js bundled with it is
+distributed under its own MIT license.
+
+---
+
+Trademarks. "HP", "Hewlett-Packard", "HP 12c" and "12C", and the hp logo, are
+trademarks of HP Inc. and its affiliates (HP Development Company, L.P.). HP
+calculators are manufactured and sold under license by Moravia Consulting and
+Royal Consumer Information Products. This project is an independent, personal,
+non-commercial emulator. It is not affiliated with, sponsored by or endorsed by
+HP Inc., Moravia or Royal. The names are used only to identify the calculator
+being emulated. The MIT license above grants no right to any of these marks.
