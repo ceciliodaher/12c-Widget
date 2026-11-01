@@ -10,7 +10,9 @@ Estado: PRD-01 concluído em main (código em eda7ac5; topo = último commit [S1
 web/upstream/ não está no git: rode web/fetch-upstream.sh antes de qualquer teste (esperado: upstream 204/204, web/tests 30/30).
 Tarefa: especificar o PRD-02 em .clavix/outputs/prd-02-involucro-macos/ (quick-prd, full-prd, tasks) e executá-lo:
 projeto Xcode Widget12c em macos/, NSPanel flutuante, WKWebView, esquema hp12c-app://, BridgeController e StateStore.
-Pendências a confirmar com o Professor Cecílio: nenhuma bloqueante para o PRD-02 (DEC-009 bloqueia só o PRD-03; DEC-010 só o PRD-04).
+Pendências a confirmar com o Professor Cecílio: (1) nome e selo «12c» — o aviso de marcas no LICENSE e no README atribui «12C» à HP,
+mas só «HP 12C» tem registro confirmado (USPTO 4.862.804); decidir entre trocar nome e selo por algo sem «12c» ou corrigir o aviso
+(consulta ao INPI/USPTO resolve); (2) DEC-009 bloqueia só o PRD-03; DEC-010 só o PRD-04.
 Restrições: nunca editar web/upstream/ (mudança só por web/upstream.patch com DEC); nenhum cálculo fora do motor (DEC-006);
 um commit por PRD com prefixo [PRD-NN]; push de main para origin autorizado; nunca usar /compact.
 ```
@@ -25,6 +27,7 @@ um commit por PRD com prefixo [PRD-NN]; push de main para origin autorizado; nun
 
 ## Roteiro de execução
 
+0. Pedir ao Professor a decisão sobre o nome e o selo «12c» (pendência 1 do bloco acima) antes de criar o projeto Xcode, porque o nome entra nos identificadores.
 1. Rodar `web/fetch-upstream.sh` e as duas suítes; confirmar 204 e 30.
 2. Especificar o PRD-02 (quick-prd, full-prd e tasks) a partir da `ARCHITECTURE.md` §2.4 e da fase 2 do `MASTER-PLAN.md`, incluindo a etapa de build que baixa o motor.
 3. Apresentar ao Professor a estrutura de classes e métodos antes do código extenso.
