@@ -6,7 +6,8 @@ Utilitário para macOS 14 ou superior que emula a HP 12c Platinum no Mac (marca 
 
 # 2 Estratégia de desenvolvimento
 
-> ⛔ Remoto: `origin` = `github.com/ceciliodaher/12c-Widget`, público. Nunca fazer push sem autorização expressa do Professor Cecílio.
+> ⛔ Remoto: `origin` = `github.com/ceciliodaher/12c-Widget`, público. Push de `main` para `origin` autorizado pelo Professor Cecílio em 01/11/2026 (vale nas sessões seguintes); push forçado, outras branches ou outros remotos, só com nova autorização.
+> ⛔ Nunca usar nem sugerir `/compact`: contexto cheio se resolve com `/encerramento` e `/arranque`.
 > ⛔ `web/upstream/` nunca entra no git (DEC-012): é instalado por `web/fetch-upstream.sh`.
 > ⛔ Nunca editar `web/upstream/`. Adaptações vivem em `web/mac/`; correção inevitável vai como patch em `web/upstream.patch` com DEC própria.
 > ⛔ Nunca implementar cálculo financeiro, de data, estatístico ou de programação fora do motor (DEC-006).
