@@ -1,6 +1,8 @@
 # Retomada Sessão 1 — Execução do PRD-01
 
-## Prompt de arranque copiável
+> ⚠️ **CONSUMIDA em 01/11/2026.** A sessão 1 executou este roteiro. Não use o prompt abaixo; a retomada ativa é `RETOMADA-sessao-2-involucro-macos.md`.
+
+## Prompt de arranque (neutralizado — não usar)
 
 > Diretório: `/Users/ceciliodaher/Documents/git/HP-12c-Widget`. Leia `CLAUDE.md`, `.claude/context.md` (v1.0) e `docs/MASTER-TRACKING.md`. Estado: só documentação; sem git, sem código. Objetivo: executar o PRD-01 (`.clavix/outputs/prd-01-camada-web-mac/`), fases 0 a 4, seguindo `tasks.md`. Autorizações: criar o repositório local, a branch `feat/prd-01-camada-web-mac`, clonar o malufloyd/hp12c, instalar nada além do necessário para `node --test`, e fazer o commit final com merge fast-forward local. Sem push. Pare e pergunte se a DEC-008 não estiver decidida ao chegar à fase 2.
 
