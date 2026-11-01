@@ -6,7 +6,7 @@
 
 ## 1.1 O que aproveitamos sem mudança
 
-A leitura do código mostra uma separação boa para o nosso caso. A pasta `src/engine/` (cerca de 1.460 linhas) contém o motor inteiro e não toca no DOM: a classe `Calculator` recebe códigos de tecla por `press(code)` e `release()`, expõe o visor por `display` e se serializa por `serialize()` e `Calculator.deserialize()`. A pasta `src/ui/` desenha a calculadora em SVG (viewBox de 1280 × 790) e traduz cliques em códigos de tecla. As duas camadas entram no app como estão, junto com `vendor/decimal.mjs` e os 200 testes.
+A leitura do código mostra uma separação boa para o nosso caso. A pasta `src/engine/` (cerca de 1.460 linhas) contém o motor inteiro e não toca no DOM: a classe `Calculator` recebe códigos de tecla por `press(code)` e `release()`, expõe o visor por `display` e se serializa por `serialize()` e `Calculator.deserialize()`. A pasta `src/ui/` desenha a calculadora em SVG (viewBox de 1280 × 790) e traduz cliques em códigos de tecla. As duas camadas entram no app como estão, junto com `vendor/decimal.mjs` e os 204 testes (a primeira versão deste documento dizia 200, número contado por leitura; a execução na sessão 1 mostrou 204). A única alteração é o `web/upstream.patch`, que retira a marca HP do desenho (DEC-013).
 
 ## 1.2 O que precisa de adaptação
 

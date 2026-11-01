@@ -8,7 +8,7 @@ O fluxo segue as etapas PRD, Plan, Implement e Verify. Cada fase termina com uma
 
 ## 1.1 Fase 1: camada web adaptada
 
-Copiar o código de origem para `web/upstream/`, criar `web/mac/` com os quatro módulos e rodar os 200 testes originais mais os novos. A fase está pronta quando a página abre no Safari em modo de teste, aceita o teclado físico e mantém a memória ao recarregar.
+Copiar o código de origem para `web/upstream/`, criar `web/mac/` com os quatro módulos e rodar os 204 testes originais (eram 200 na primeira versão deste plano, contagem por leitura corrigida na sessão 1) mais os novos. A fase está pronta quando a página abre no Safari em modo de teste, aceita o teclado físico e mantém a memória ao recarregar.
 
 ## 1.2 Fase 2: invólucro macOS
 
@@ -24,7 +24,7 @@ App Group, `HP12cSnapshot` e a extensão. Pronto quando o widget mostra o visor 
 
 ## 1.5 Fase 5: verificação
 
-A verificação usa três camadas. Primeiro, os 200 testes do código de origem continuam passando. Segundo, um roteiro com os exemplos do manual da 12C Platinum (TVM, IRR, datas, títulos e um programa) é executado no app pelo teclado físico. Terceiro, uma amostra desses cálculos é comparada com o x11-calc, que roda a ROM original, apenas como referência local, fora do produto.
+A verificação usa três camadas. Primeiro, os 204 testes do código de origem continuam passando. Segundo, um roteiro com os exemplos do manual da 12C Platinum (TVM, IRR, datas, títulos e um programa) é executado no app pelo teclado físico. Terceiro, uma amostra desses cálculos é comparada com o x11-calc, que roda a ROM original, apenas como referência local, fora do produto.
 
 # 2 Riscos e pontos a confirmar
 
