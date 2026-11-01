@@ -1,6 +1,6 @@
 # Plano mestre do 12c Widget
 
-> Bússola do projeto. Versão 1.0, de 01/11/2026. Requisitos em `docs/REQUISITOS.md`; arquitetura em `docs/ARCHITECTURE.md`; decisões em `docs/DECISIONS.md`.
+> Bússola do projeto. Versão 1.1, de 01/11/2026 (sessão 2). Requisitos em `docs/REQUISITOS.md`; arquitetura em `docs/ARCHITECTURE.md`; decisões em `docs/DECISIONS.md`.
 
 # 1 Plano de implementação
 
@@ -44,9 +44,9 @@ Cada fase se desdobra em PRDs no fluxo Clavix (PRD, Plan, Implement, Verify), gu
 | PRD | Fase | Escopo | Situação |
 |---|---|---|---|
 | PRD-01 | 1 | Camada web para Mac: upstream, ponte, teclado, área de transferência, página de teste | Concluído na sessão 1 (01/11/2026) |
-| PRD-02 | 2 | Projeto Xcode, painel, WebView, esquema próprio, ponte e StateStore | Previsto |
+| PRD-02 | 2 | Pacote SwiftPM (DEC-015), painel, WebView, esquema `finrpn-app://`, ponte e StateStore | Em andamento: fases 1 e 2 prontas (sessão 2) |
 | PRD-03 | 3 | Barra de menus, atalho global, Ajustes, abrir no login | Previsto; aguarda DEC-009 |
-| PRD-04 | 4 | App Group, snapshot e extensão WidgetKit | Previsto; aguarda DEC-010 |
+| PRD-04 | 4 | Fotografia na pasta do app (DEC-016) e extensão WidgetKit | Previsto; viabilidade provada por sonda na sessão 2 |
 | PRD-05 | 5 | Roteiro de verificação com exemplos do manual e comparação com x11-calc | Previsto |
 
 # 4 Aprendizados
@@ -55,3 +55,4 @@ Seção cumulativa, atualizada ao fim de cada sessão.
 
 - Sessão 0 (01/11/2026): o código de origem já recebe o armazenamento por parâmetro em `load()` e `save()`, o que reduz a adaptação de persistência a um adaptador; o código não tem nenhum tratamento de teclado físico.
 - Sessão 1 (01/11/2026): a suíte do upstream tem 204 testes, e não os 200 contados por leitura; contagem só vale executada. O `pwa.test.js` do upstream confere o hash dos arquivos em cache, então qualquer patch em `src/` precisa recarimbar o `sw.js` (`node tools/stamp-sw.mjs`). No ABNT2 o `^` é tecla morta. O PRD-02 precisa rodar `web/fetch-upstream.sh` antes de empacotar `web/` no app, porque `web/upstream/` não está no git (DEC-012).
+- Sessão 2 (01/11/2026): busca de marca precisa de controle positivo, porque a busca do USPTO pelo endereço devolveu um falso zero e só a busca digitada por «HP 12C» revelou o registro de «12C». Extensão WidgetKit montada sem Xcode trava em `_EXRunningExtension._shared` se não for ligada com `-e _NSExtensionMain`. Widget com assinatura local funciona e lê a pasta do app por exceção de leitura da sandbox. Depois de apagar `.build`, o `swift test` das Command Line Tools exige `-Xswiftc -plugin-path` apontando para o plugin do Swift Testing.

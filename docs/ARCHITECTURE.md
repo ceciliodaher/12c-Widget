@@ -49,6 +49,8 @@ A leitura do diagrama é direta. O app nativo cuida da janela, do atalho, da bar
 
 ## 2.2 Estrutura de pastas
 
+> Sessão 2: `macos/` é um pacote SwiftPM, sem `.xcodeproj` (DEC-015), e o app se chama FinRPN (DEC-014). A estrutura vigente do PRD-02 está em `.clavix/outputs/prd-02-involucro-macos/full-prd.md`, seção 2.
+
 A organização segue o Apêndice A do guia metodológico (v3.1), consolidada em um único diretório `docs/` por se tratar de projeto monolíngue.
 
 ```
@@ -127,6 +129,8 @@ Substitui o `main.js` original, reaproveitando os mesmos módulos. Mantém o la�
 | `pasteToKeys(text)` | Valida o texto e o converte em sequência de teclas (dígitos, ponto, EEX, CHS), que entra por `pressKey`; o motor recebe a colagem como se fosse digitada |
 
 ## 2.4 Camada nativa (Swift): classes e métodos
+
+> Sessão 2: o esquema é `finrpn-app://` (DEC-014) e o estado fica em `~/Library/Application Support/FinRPN/`, não no App Group (DEC-016). A divisão vigente, com o `FinRPNCore` testável, está no full-prd do PRD-02.
 
 | Classe | Métodos principais | Responsabilidade |
 |---|---|---|
