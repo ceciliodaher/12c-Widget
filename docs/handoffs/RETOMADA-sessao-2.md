@@ -6,7 +6,7 @@
 
 ## Estado pós-sessão anterior
 
-Sessão 1 encerrada em 01/11/2026. HEAD em `main`: o commit `[PRD-01] Camada web para Mac` (SHA completo registrado abaixo pelo encerramento). Suítes: upstream 204/204 com o patch aplicado; `web/tests` 30/30. Decisões novas: DEC-008, DEC-011, DEC-012 e DEC-013. Pendentes: DEC-009 (atalho, bloqueia o PRD-03) e DEC-010 (conta Apple Developer, bloqueia o PRD-04). Pendências herdadas: comando `copy` sem gesto no WKWebView; preferência de som do upstream no localStorage; push ao repositório público ainda não autorizado.
+Sessão 1 encerrada em 01/11/2026. HEAD em `main`: o commit `[PRD-01] Camada web para Mac` (`eda7ac541ad37576975204934965da8a8bae6dee`). Suítes: upstream 204/204 com o patch aplicado; `web/tests` 30/30. Decisões novas: DEC-008, DEC-011, DEC-012 e DEC-013. Pendentes: DEC-009 (atalho, bloqueia o PRD-03) e DEC-010 (conta Apple Developer, bloqueia o PRD-04). Pendências herdadas: comando `copy` sem gesto no WKWebView; preferência de som do upstream no localStorage; push ao repositório público ainda não autorizado.
 
 ## Roteiro de execução
 

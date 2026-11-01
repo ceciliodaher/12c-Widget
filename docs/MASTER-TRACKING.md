@@ -11,7 +11,7 @@ O PRD-01 (camada web para Mac) está concluído: ponte, teclado, área de transf
 | Sessão | Data | Escopo | Situação | HEAD | Testes | Próximo passo |
 |---|---|---|---|---|---|---|
 | 0 | 01/11/2026 | Comparativo de emuladores, escolha da base, arquitetura, fundação documental, PRD-01 | Concluída | sem repositório | upstream: 200 testes contados, não executados | Decidir DEC-008 e executar o PRD-01 no Claude Code |
-| 1 | 01/11/2026 | PRD-01 completo; DEC-008, 011, 012 e 013; repositório público vazio; renomeação para 12c Widget | Concluída | ver o commit `[PRD-01]` em `git log` (SHA registrado na RETOMADA-sessao-2) | upstream 204/204; web/tests 30/30 | Especificar e executar o PRD-02 (invólucro macOS) |
+| 1 | 01/11/2026 | PRD-01 completo; DEC-008, 011, 012 e 013; repositório público vazio; renomeação para 12c Widget | Concluída | `eda7ac541ad37576975204934965da8a8bae6dee` | upstream 204/204; web/tests 30/30 | Especificar e executar o PRD-02 (invólucro macOS) |
 
 # 3 Backlog
 
