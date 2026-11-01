@@ -6,7 +6,7 @@
 Diretório: /Users/ceciliodaher/Documents/git/HP-12c-Widget (projeto 12c Widget; a pasta local mantém o nome antigo).
 Leia, nesta ordem: docs/handoffs/RETOMADA-sessao-2-involucro-macos.md, CLAUDE.md, .claude/context.md (v2.1),
 docs/MASTER-TRACKING.md (v1.2), docs/DECISIONS.md (v1.2), docs/MASTER-PLAN.md (fase 2) e docs/ARCHITECTURE.md (§2.4).
-Estado: PRD-01 concluído em main (HEAD 5018624, mais o commit desta retomada), publicado em github.com/ceciliodaher/12c-Widget.
+Estado: PRD-01 concluído em main (código em eda7ac5; topo = último commit [S1]), publicado em github.com/ceciliodaher/12c-Widget.
 web/upstream/ não está no git: rode web/fetch-upstream.sh antes de qualquer teste (esperado: upstream 204/204, web/tests 30/30).
 Tarefa: especificar o PRD-02 em .clavix/outputs/prd-02-involucro-macos/ (quick-prd, full-prd, tasks) e executá-lo:
 projeto Xcode Widget12c em macos/, NSPanel flutuante, WKWebView, esquema hp12c-app://, BridgeController e StateStore.
@@ -17,7 +17,7 @@ um commit por PRD com prefixo [PRD-NN]; push de main para origin autorizado; nun
 
 ## Estado ao fim desta sessão
 
-- **HEAD e branch:** `main` em `501862440eb850e03cf3b4e96d76bb5689ce1ed6`, igual a `origin/main`, mais o commit que grava esta retomada. Árvore limpa.
+- **HEAD e branch:** `main`, igual a `origin/main`, com o topo no último commit de prefixo `[S1]` (governança do encerramento). O código do PRD-01 está em `eda7ac541ad37576975204934965da8a8bae6dee`; depois dele há só commits `[S1]` de documentação. Árvore limpa. Se o topo de `main` ao abrir não for um commit `[S1]`, alguém mexeu depois do encerramento.
 - **Suítes medidas no encerramento:** upstream 204/204 com o patch aplicado; `web/tests` 30/30.
 - **Produção:** não há. O app nativo ainda não existe.
 - **Gates atingidos:** os cinco critérios do PRD-01 (`verification-report.md`), verificados no Chromium automático e no Safari pelo Professor Cecílio; travas provadas por teste negativo; push publicado sem `web/upstream/`.
