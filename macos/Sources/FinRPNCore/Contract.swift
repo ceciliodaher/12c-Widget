@@ -11,6 +11,8 @@ public enum Contract {
   public static let badKey = "hp12c.state.bad"      // BAD_KEY em web/upstream/src/storage.js
   public static let saveKeys: Set<String> = [stateKey, badKey]
   public static let snapshotFile = "snapshot.json"
+  public static let calcImageFile = "calc.png"      // widget médio e grande (DEC-018)
+  public static let lcdImageFile = "lcd.png"        // widget pequeno (DEC-018)
   public static let appSupportFolder = "FinRPN"
   public static var startURL: URL {
     guard let u = URL(string: "\(scheme)://\(host)/\(startPage)") else { fatalError("URL de partida inválida") }

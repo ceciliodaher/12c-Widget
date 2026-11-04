@@ -1,6 +1,6 @@
 # Decisões arquiteturais do 12c Widget
 
-> Registro vinculante. Cada decisão só se altera por nova decisão expressa, registrada aqui com número próprio. Versão 1.4, de 04/11/2026 (sessão 3).
+> Registro vinculante. Cada decisão só se altera por nova decisão expressa, registrada aqui com número próprio. Versão 1.5, de 04/11/2026 (sessão 4).
 
 # 1 Decisões vigentes
 
@@ -13,6 +13,8 @@ O contexto era escolher, entre os emuladores da HP 12c publicados no GitHub, o q
 Para acompanhar correções futuras do autor sem conflito, o código de origem fica em `web/upstream/` exatamente como publicado. Toda adaptação vive em `web/mac/`. Se uma mudança no código de origem for inevitável, ela entra como patch em `web/upstream.patch`, com justificativa neste arquivo. A alternativa descartada foi editar o código diretamente, que tornaria cada atualização um trabalho de comparação manual.
 
 ## 1.3 DEC-003 — Produto: painel flutuante, com widget apenas de leitura
+
+> O conteúdo do widget passou a ser a imagem da calculadora pela DEC-018 (seção 1.16); o widget continua somente leitura.
 
 O WidgetKit só aceita botões e toggles ligados a App Intents, com recarga da linha do tempo a cada toque, e não hospeda WKWebView. Isso inviabiliza uma calculadora de 39 teclas dentro do widget. Adotamos um app SwiftUI e AppKit com NSPanel flutuante e MenuBarExtra, que roda o motor em WKWebView. O widget da área de trabalho apenas mostra o visor e os registradores e abre o painel. Descartamos o WidgetKit puro (inviável), o porte do motor para Swift (duplicaria a lógica financeira) e Electron ou Tauri (peso e dependências desproporcionais para um utilitário).
 
@@ -81,6 +83,18 @@ O malufloyd/hp12c não declara licença; o uso está autorizado (DEC-001), mas p
 **Contexto.** O plano mestre previa o PRD-03 (barra de menus, atalho global, Ajustes, abrir no login) antes do PRD-04 (widget). O PRD-03 depende da DEC-009, ainda pendente. Com o PRD-02 concluído, o app já grava a fotografia do visor (`snapshot.json`) na pasta da DEC-016, que é tudo de que o widget precisa; a sonda da sessão 2 provou o widget sem Xcode.
 
 **Decisão do Professor Cecílio (04/11/2026).** O PRD-04 passa à frente do PRD-03. A alternativa era decidir agora a DEC-009 e seguir a ordem original. A ordem só muda a sequência das fases; nenhum escopo muda. O PRD-03 continua aguardando a DEC-009.
+
+## 1.16 DEC-018 — O widget mostra a imagem da calculadora, gerada pela própria página (04/11/2026)
+
+**Contexto.** O Professor Cecílio pediu widgets nos tamanhos pequeno, médio e grande que «mostrem a calculadora», para clicar e abri-la. O widget não roda JavaScript nem WKWebView, e o desenho é SVG gerado em tempo de execução pelo upstream. O agente architect-review comparou quatro caminhos, e o parecer foi conferido na fonte: redesenhar a calculadora em Swift ou sobrepor um visor desenhado em Swift a uma imagem fixa duplicaria o desenho (contra a DEC-002); teclas que funcionem no widget exigiriam rever a DEC-003, com perto de um segundo por toque e sem retorno visual. Uma sonda mediu a conversão do SVG em PNG num WKWebView sem janela: imagem fiel, de 42 a 92 ms.
+
+**Decisão do Professor Cecílio.** A página converte o próprio desenho em duas imagens PNG (a calculadora inteira e o recorte do visor) e as envia pela ponte; o app as grava em `calc.png` e `lcd.png` na pasta da DEC-016 e pede a recarga do widget. O pequeno mostra só o visor, porque nele a calculadora inteira fica com as legendas ilegíveis; o médio e o grande mostram a calculadora inteira, sem registradores em texto. O clique abre o painel. O widget continua somente leitura (DEC-003) e o Swift não desenha nem calcula (DEC-006).
+
+## 1.17 DEC-019 — Fechar o painel encerra o app (04/11/2026)
+
+**Contexto.** No PRD-02, fechar o painel não encerrava o app. Na verificação do PRD-04, o Professor Cecílio clicou no widget com o painel minimizado e o app aberto: o app foi ativado, mas o painel não voltou.
+
+**Decisão do Professor Cecílio.** Fechar o painel encerra o app; o clique no widget abre o app de novo, e a partida mostra o painel. O estado não se perde, porque cada tecla é gravada na hora. Complemento técnico: quando o app é ativado com o painel minimizado ou fora da tela, o painel volta. Substitui o comportamento «fechar não encerra» do PRD-02.
 
 # 2 Decisões pendentes
 

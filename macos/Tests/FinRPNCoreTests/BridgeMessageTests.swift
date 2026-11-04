@@ -41,3 +41,24 @@ private let validSnapshot: [String: Any] = [
     #expect(throws: BridgeError.self) { try BridgeMessage.parse(body) }
   }
 }
+
+private let b64 = pngBytes.base64EncodedString()
+
+@Test func imageValidaDecodificaAsDuas() throws {
+  let msg = try BridgeMessage.parse(["type": "image", "calc": b64, "lcd": b64])
+  #expect(msg == .image(calc: pngBytes, lcd: pngBytes))
+}
+
+@Test func imageInvalidaERecusada() {
+  let naoPNG = Data("<svg/>".utf8).base64EncodedString()
+  for body: [String: Any] in [
+    ["type": "image", "calc": b64],
+    ["type": "image", "lcd": b64],
+    ["type": "image", "calc": b64, "lcd": 1],
+    ["type": "image", "calc": "%%%não-é-base64", "lcd": b64],
+    ["type": "image", "calc": b64, "lcd": naoPNG],
+    ["type": "image", "calc": "", "lcd": b64],
+  ] {
+    #expect(throws: BridgeError.self, "deveria recusar \(body)") { try BridgeMessage.parse(body) }
+  }
+}

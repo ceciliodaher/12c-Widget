@@ -11,6 +11,7 @@ import '../upstream/src/engine/all-ops.js';
 import { createStorage, publishSnapshot, onNativeCommand } from './native-bridge.js';
 import { KeyboardController } from './keyboard.js';
 import { copyX, pasteToKeys, PasteFormatError } from './clipboard.js';
+import { createImagePublisher } from './widget-image.js';
 
 const ON = 41, HOLD_MS = 2000;
 const stage = document.getElementById('stage');
@@ -18,6 +19,7 @@ if (!stage) throw new Error('#stage não disponível - obrigatório para montar 
 const storage = createStorage(window);
 const calc = load(storage);
 const view = createCalculatorView(stage);
+const scheduleImage = createImagePublisher(window);
 
 let overlay = null, overlayTimer = 0, flashUntil = 0, raf = 0, flashTimer = 0;
 
@@ -33,7 +35,7 @@ function render() {
   }
   view.update(overlay ? { ...d, text: overlay, running: false } : d);
 }
-function persist() { save(storage, calc); publishSnapshot(window, calc); }
+function persist() { save(storage, calc); publishSnapshot(window, calc); scheduleImage(view.svg); }
 function busy() { const s = calc.state; return s.prog.running || (s.selfTest && s.selfTest.phase === 'running'); }
 function loop(now) {
   raf = 0;
@@ -107,5 +109,6 @@ onNativeCommand(window, msg => {
 });
 addEventListener('pointerup', initAudio);
 render();
+scheduleImage(view.svg);   // o widget mostra a calculadora desde a partida, sem esperar a primeira tecla
 ensureLoop();
 window.__hp12c = { calc, view, pressKey, releaseKey };

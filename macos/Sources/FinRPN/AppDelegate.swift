@@ -28,8 +28,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
-  // Fechar o painel não encerra o app; o clique no Dock o reabre.
-  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
+  // Fechar o painel encerra o app (PRD-04, a pedido do Professor): o clique no widget abre o app de novo, e a partida
+  // mostra o painel. O estado já está gravado, porque cada tecla é gravada na hora.
+  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
+
+  // Clique no widget com o app aberto e o painel minimizado: a ativação traz o painel de volta.
+  func applicationDidBecomeActive(_ notification: Notification) {
+    panel?.show()
+  }
 
   func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
     panel?.show()

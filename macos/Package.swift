@@ -8,6 +8,11 @@ let package = Package(
   targets: [
     .target(name: "FinRPNCore"),
     .executableTarget(name: "FinRPN", dependencies: ["FinRPNCore"]),
+    // Extensão WidgetKit (PRD-04). Sem _NSExtensionMain como ponto de entrada ela trava ao iniciar (DEC-015).
+    .executableTarget(
+      name: "FinRPNWidget", dependencies: ["FinRPNCore"],
+      linkerSettings: [.unsafeFlags(["-Xlinker", "-e", "-Xlinker", "_NSExtensionMain"])]
+    ),
     .testTarget(name: "FinRPNCoreTests", dependencies: ["FinRPNCore"]),
   ]
 )

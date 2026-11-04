@@ -41,8 +41,17 @@ private func tempDir() -> URL {
   #expect(try Data(contentsOf: dir.appendingPathComponent(Contract.snapshotFile)) == Data(#"{"x":"2"}"#.utf8))
 }
 
-@Test func pastaPadraoEAApplicationSupportDoApp() throws {
-  let url = try StateStore.defaultDirectory()
-  #expect(url.lastPathComponent == Contract.appSupportFolder)
-  #expect(url.deletingLastPathComponent().lastPathComponent == "Application Support")
+
+@Test func imagensGravadasNosArquivosDoContrato() throws {
+  let dir = tempDir()
+  let store = try StateStore(directory: dir)
+  try store.saveImages(calc: pngBytes, lcd: Data(pngBytes.reversed()))
+  #expect(try Data(contentsOf: dir.appendingPathComponent(Contract.calcImageFile)) == pngBytes)
+  #expect(try Data(contentsOf: dir.appendingPathComponent(Contract.lcdImageFile)) == Data(pngBytes.reversed()))
+}
+
+// Dentro da sandbox do widget, o FileManager devolve o contêiner; a pasta vem do diretório real do usuário.
+@Test func pastaPadraoVemDoDiretorioRealDoUsuario() throws {
+  let home = String(cString: try #require(getpwuid(getuid())).pointee.pw_dir)
+  #expect(try StateStore.defaultDirectory().path == home + "/Library/Application Support/" + Contract.appSupportFolder)
 }

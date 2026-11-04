@@ -9,6 +9,7 @@ public struct BridgeError: Error, CustomStringConvertible {
 public enum BridgeMessage: Equatable {
   case save(key: String, value: String)
   case snapshot(Data)
+  case image(calc: Data, lcd: Data)
 
   public static func parse(_ body: Any) throws -> BridgeMessage {
     guard let dict = body as? [String: Any] else { throw BridgeError(description: "mensagem não é objeto: \(body)") }
@@ -25,9 +26,18 @@ public enum BridgeMessage: Equatable {
       guard let fin = dict["fin"] as? [String: Any] else { throw BridgeError(description: "snapshot sem fin") }
       try requireStrings(fin, ["n", "i", "pv", "pmt", "fv"], context: "snapshot.fin")
       return .snapshot(try JSONSerialization.data(withJSONObject: dict, options: [.sortedKeys]))
+    case "image":
+      try requireStrings(dict, ["calc", "lcd"], context: "image")
+      return .image(calc: try png(dict["calc"], "calc"), lcd: try png(dict["lcd"], "lcd"))
     default:
       throw BridgeError(description: "tipo de mensagem desconhecido: \(String(describing: dict["type"]))")
     }
+  }
+
+  private static func png(_ value: Any?, _ field: String) throws -> Data {
+    guard let text = value as? String, let data = Data(base64Encoded: text) else { throw BridgeError(description: "image.\(field) não é base64") }
+    guard WidgetImage.isPNG(data) else { throw BridgeError(description: "image.\(field) não é PNG") }
+    return data
   }
 
   // Números trafegam como texto decimal (CLAUDE.md §6); um Number aqui é violação do contrato.

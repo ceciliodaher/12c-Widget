@@ -29,3 +29,12 @@ private func jsConstant(_ name: String, in relativePath: String) throws -> Strin
 @Test func paginaInicialExisteNoRepositorio() {
   #expect(FileManager.default.fileExists(atPath: repoRoot.appendingPathComponent("web/" + Contract.startPage).path))
 }
+
+// Lista paralela: os direitos da extensão repetem a pasta da DEC-016 na exceção de leitura da sandbox.
+@Test func direitosDoWidgetLiberamAPastaDoContrato() throws {
+  let url = repoRoot.appendingPathComponent("macos/Widget/FinRPNWidget.entitlements")
+  let plist = try #require(try PropertyListSerialization.propertyList(from: Data(contentsOf: url), format: nil) as? [String: Any])
+  #expect(plist["com.apple.security.app-sandbox"] as? Bool == true)
+  let paths = try #require(plist["com.apple.security.temporary-exception.files.home-relative-path.read-only"] as? [String])
+  #expect(paths == ["/Library/Application Support/\(Contract.appSupportFolder)/"])
+}

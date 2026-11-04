@@ -29,6 +29,7 @@ final class PanelController {
   }
 
   func show() {
+    if panel.isMiniaturized { panel.deminiaturize(nil) }
     NSApp.activate(ignoringOtherApps: true)
     panel.makeKeyAndOrderFront(nil)
     panel.makeFirstResponder(content)

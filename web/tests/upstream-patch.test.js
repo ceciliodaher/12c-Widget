@@ -11,3 +11,10 @@ test('desenho sem a marca HP (upstream.patch aplicado)', () => {
     assert.ok(!view.includes(mark), `marca presente: ${mark} - rode web/fetch-upstream.sh`);
   for (const repl of ["lg, 'Fin')", "lg, 'RPN')", 'FINANCIAL·CALCULATOR', "'aria-label': 'FinRPN'"]) assert.ok(view.includes(repl), repl);
 });
+
+// Ícone do app (PRD-04): o visor do icon.svg do upstream mostra «12C», marca da HP; o patch troca por «Fin».
+test('ícone sem o «12C» no visor (upstream.patch aplicado)', () => {
+  const icon = readFileSync(new URL('../upstream/icons/icon.svg', import.meta.url), 'utf8');
+  assert.ok(!icon.includes('<line x1="200" y1="109" x2="200" y2="151"/>'), 'segmento do «1» de «12C» presente - rode web/fetch-upstream.sh');
+  assert.ok(icon.includes('<title>FinRPN</title>'), 'título FinRPN ausente');
+});

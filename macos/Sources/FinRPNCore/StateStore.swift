@@ -15,9 +15,12 @@ public struct StateStore {
     self.directory = directory
   }
 
-  // DEC-016: a pasta do app em Application Support, lida também pelo widget (PRD-04).
+  // DEC-016: a pasta do app em Application Support, lida também pelo widget (PRD-04). O caminho sai do diretório
+  // real do usuário porque, dentro da sandbox da extensão, o FileManager devolve o contêiner da própria extensão.
   public static func defaultDirectory() throws -> URL {
-    try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    guard let pw = getpwuid(getuid()) else { throw StateStoreError(description: "diretório do usuário não disponível (getpwuid)") }
+    return URL(fileURLWithPath: String(cString: pw.pointee.pw_dir), isDirectory: true)
+      .appendingPathComponent("Library/Application Support", isDirectory: true)
       .appendingPathComponent(Contract.appSupportFolder, isDirectory: true)
   }
 
@@ -33,6 +36,11 @@ public struct StateStore {
 
   public func saveSnapshot(_ data: Data) throws {
     try data.write(to: directory.appendingPathComponent(Contract.snapshotFile), options: .atomic)
+  }
+
+  public func saveImages(calc: Data, lcd: Data) throws {
+    try calc.write(to: directory.appendingPathComponent(Contract.calcImageFile), options: .atomic)
+    try lcd.write(to: directory.appendingPathComponent(Contract.lcdImageFile), options: .atomic)
   }
 
   private func file(for key: String) throws -> URL {
