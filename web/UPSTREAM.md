@@ -5,7 +5,7 @@
 | Origem | https://github.com/malufloyd/hp12c |
 | Commit | `f1c12e80a9c14757c8bf406386f7ced1f405c3a9` (16/10/2026), fixado em `web/upstream.env` |
 | Autorização | O repositório não declara licença. O Professor Cecílio autorizou o uso em 01/11/2026 (DEC-001); como a redistribuição depende do autor, a pasta não vai para o repositório público (DEC-012). |
-| Patch | `web/upstream.patch`: troca o selo «hp 12C» e a faixa «HEWLETT·PACKARD» por «12c / RPN» e «FINANCIAL·CALCULATOR», muda o `aria-label` e recarimba o `sw.js` (DEC-013) |
+| Patch | `web/upstream.patch`: troca o selo «hp 12C» e a faixa «HEWLETT·PACKARD» por «Fin / RPN» e «FINANCIAL·CALCULATOR», muda o `aria-label` para «FinRPN» e recarimba o `sw.js` (DEC-013, DEC-014) |
 | Dependência embutida | `vendor/decimal.mjs`, decimal.js v10.4.3 (MIT) |
 | Suíte | 204 testes, 204 verdes, 0 falhas, com o patch aplicado (Node 22.14.0) |
 

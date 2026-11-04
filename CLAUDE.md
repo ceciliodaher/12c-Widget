@@ -43,7 +43,7 @@ JavaScript ES modules sem build e decimal.js (já incluído no upstream); testes
 | Testes da camada Mac | `node --test 'web/tests/**/*.test.js'` | Disponível (30) |
 | Testes Swift | `cd macos && swift test -Xswiftc -plugin-path -Xswiftc /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing` | Disponível (17). O parâmetro é obrigatório: sem ele, o SwiftPM das Command Line Tools não acha o plugin `TestingMacros` (medido na sessão 2) |
 | Página no navegador | `cd web && python3 -m http.server 8123` e abrir `http://localhost:8123/mac/index-mac.html` | Disponível |
-| Build do app | `macos/build-app.sh` (gera `macos/build/FinRPN.app`) | A criar no PRD-02, fase 3 |
+| Build do app | `macos/build-app.sh` (gera `macos/build/FinRPN.app`; abrir com `open macos/build/FinRPN.app`) | Disponível |
 
 # 6 Padrões e decisões âncora
 

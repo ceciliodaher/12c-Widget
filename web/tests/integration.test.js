@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { KeyboardController } from '../mac/keyboard.js';
 import { pasteToKeys, copyX } from '../mac/clipboard.js';
-import { NativeStorage } from '../mac/native-bridge.js';
+import { NativeStorage, HANDLER } from '../mac/native-bridge.js';
 import { load, save, STORAGE_KEY } from '../upstream/src/storage.js';
 import { Calculator } from '../upstream/src/engine/calculator.js';
 import '../upstream/src/engine/all-ops.js';
@@ -45,7 +45,7 @@ test('financeiro pelo teclado: 10 n 1 i 1000 CHS p → v (FV)', () => {
 });
 
 test('memória contínua: o estado gravado pela ponte volta igual na partida seguinte', () => {
-  const sent = [], win = { __HP12C_BOOT__: { [STORAGE_KEY]: null }, webkit: { messageHandlers: { hp12c: { postMessage: m => sent.push(m) } } } };
+  const sent = [], win = { __HP12C_BOOT__: { [STORAGE_KEY]: null }, webkit: { messageHandlers: { [HANDLER]: { postMessage: m => sent.push(m) } } } };
   const { calc, type } = keyboardCalc();
   type([...'42', 's', '3']);                         // 42 STO 3
   save(new NativeStorage(win), calc);

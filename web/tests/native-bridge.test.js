@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { NativeStorage, createStorage, detectMode, publishSnapshot, snapshotOf, onNativeCommand, MODE_NATIVE, MODE_DEV }
+import { NativeStorage, createStorage, detectMode, publishSnapshot, snapshotOf, onNativeCommand, MODE_NATIVE, MODE_DEV, HANDLER }
   from '../mac/native-bridge.js';
 import { load, save, STORAGE_KEY, BAD_KEY } from '../upstream/src/storage.js';
 import { Calculator } from '../upstream/src/engine/calculator.js';
@@ -10,7 +10,7 @@ const quiet = fn => { const e = console.error, w = console.warn; console.error =
 
 function nativeWin(state = null) {
   const sent = [];
-  return { sent, __HP12C_BOOT__: { [STORAGE_KEY]: state }, webkit: { messageHandlers: { hp12c: { postMessage: m => sent.push(m) } } } };
+  return { sent, __HP12C_BOOT__: { [STORAGE_KEY]: state }, webkit: { messageHandlers: { [HANDLER]: { postMessage: m => sent.push(m) } } } };
 }
 
 test('detecção de modo nos dois ambientes', () => {

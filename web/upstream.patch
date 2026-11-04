@@ -1,5 +1,5 @@
 diff --git a/src/ui/calculator-view.js b/src/ui/calculator-view.js
-index 72f2365..b33a825 100644
+index 72f2365..c36f844 100644
 --- a/src/ui/calculator-view.js
 +++ b/src/ui/calculator-view.js
 @@ -61,18 +61,18 @@ function buildBody(svg, G) {
@@ -9,7 +9,7 @@ index 72f2365..b33a825 100644
 -  el('text', { x: 70, y: 84, 'text-anchor': 'middle', 'font-size': 58, 'font-style': 'italic', 'font-weight': 700,
 -    'font-family': FONT, fill: '#d9bd78' }, lg, 'hp');
 +  el('text', { x: 70, y: 84, 'text-anchor': 'middle', 'font-size': 44, 'font-style': 'italic', 'font-weight': 700,
-+    'font-family': FONT, fill: '#d9bd78' }, lg, '12c');
++    'font-family': FONT, fill: '#d9bd78' }, lg, 'Fin');
    el('rect', { x: 14, y: 116, width: 112, height: 26, fill: '#0b0b0a', stroke: '#c7ad6a', 'stroke-width': 2 }, lg);
    el('text', { x: 70, y: 137, 'text-anchor': 'middle', 'font-size': 23, 'font-weight': 700, 'font-family': FONT,
 -    fill: '#d9bd78', 'letter-spacing': 1 }, lg, '12C');
@@ -30,19 +30,19 @@ index 72f2365..b33a825 100644
  // The SVG is rebuilt from scratch when the width changes (normal 1280, wider when stretched).
  export function createCalculatorView(container) {
 -  const svg = el('svg', { preserveAspectRatio: 'xMidYMid meet', class: 'calculator', role: 'img', 'aria-label': 'HP 12C' });
-+  const svg = el('svg', { preserveAspectRatio: 'xMidYMid meet', class: 'calculator', role: 'img', 'aria-label': '12c' });
++  const svg = el('svg', { preserveAspectRatio: 'xMidYMid meet', class: 'calculator', role: 'img', 'aria-label': 'FinRPN' });
    let G, lcd, keys, last = null;
    function build(w) {
      G = makeGeometry(w);
 diff --git a/sw.js b/sw.js
-index b5eb8bb..abeecea 100644
+index b5eb8bb..0b4a7c8 100644
 --- a/sw.js
 +++ b/sw.js
 @@ -1,6 +1,6 @@
  // VERSION is stamped automatically from the precached files' contents: run `npm run stamp` before every deploy
  // (tests fail when it is stale).
 -const VERSION = 'vf3d215f4dd';
-+const VERSION = 'v8b91cf6e97';
++const VERSION = 'vba6628b8ee';
  const CACHE = `hp12c-${VERSION}`;
  const PRECACHE = [
    './',

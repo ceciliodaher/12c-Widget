@@ -1,9 +1,11 @@
 // Ponte entre a camada web e o app nativo (DEC-004). Contratos em .clavix/outputs/prd-01-camada-web-mac/full-prd.md, seção 3.
-// Modo nativo: existe window.webkit.messageHandlers.hp12c. Modo de desenvolvimento: a página aberta no navegador,
+// Modo nativo: existe window.webkit.messageHandlers[HANDLER]. Modo de desenvolvimento: a página aberta no navegador,
 // com localStorage explícito e anunciado no console (não é fallback silencioso).
 import { STORAGE_KEY, BAD_KEY } from '../upstream/src/storage.js';
 import { LAYOUT } from '../upstream/src/engine/keys.js';
 
+// Nome do manipulador de mensagens registrado pelo app (DEC-014). O Contract.swift confere este valor.
+export const HANDLER = 'finrpn';
 export const MODE_NATIVE = 'nativo';
 export const MODE_DEV = 'desenvolvimento';
 const SAVE_KEYS = new Set([STORAGE_KEY, BAD_KEY]);
@@ -15,12 +17,12 @@ function reject(message) {
 }
 
 export function detectMode(win) {
-  return win.webkit?.messageHandlers?.hp12c ? MODE_NATIVE : MODE_DEV;
+  return win.webkit?.messageHandlers?.[HANDLER] ? MODE_NATIVE : MODE_DEV;
 }
 
 function handlerOf(win) {
-  const h = win.webkit?.messageHandlers?.hp12c;
-  if (!h || typeof h.postMessage !== 'function') reject('webkit.messageHandlers.hp12c não disponível - obrigatório no modo nativo');
+  const h = win.webkit?.messageHandlers?.[HANDLER];
+  if (!h || typeof h.postMessage !== 'function') reject(`webkit.messageHandlers.${HANDLER} não disponível - obrigatório no modo nativo`);
   return h;
 }
 
