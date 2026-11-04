@@ -1,6 +1,6 @@
 # Decisões arquiteturais do 12c Widget
 
-> Registro vinculante. Cada decisão só se altera por nova decisão expressa, registrada aqui com número próprio. Versão 1.3, de 01/11/2026 (sessão 2).
+> Registro vinculante. Cada decisão só se altera por nova decisão expressa, registrada aqui com número próprio. Versão 1.4, de 04/11/2026 (sessão 3).
 
 # 1 Decisões vigentes
 
@@ -76,11 +76,17 @@ O malufloyd/hp12c não declara licença; o uso está autorizado (DEC-001), mas p
 
 **Decisão.** O `StateStore` grava o estado e a fotografia em `~/Library/Application Support/FinRPN/`, cujo caminho é definido num único ponto do código. O widget do PRD-04 lê essa pasta com a exceção de leitura. Substitui o App Group na DEC-004; o resto da DEC-004 (injeção síncrona na partida e gravação assíncrona por mensagem) continua valendo. Com isso, a DEC-010 deixa de bloquear o PRD-04. Limite conhecido: exceção temporária de sandbox não é aceita na Mac App Store, que está fora do escopo deste projeto pessoal.
 
+## 1.15 DEC-017 — Widget (PRD-04) antes das conveniências (PRD-03) (04/11/2026)
+
+**Contexto.** O plano mestre previa o PRD-03 (barra de menus, atalho global, Ajustes, abrir no login) antes do PRD-04 (widget). O PRD-03 depende da DEC-009, ainda pendente. Com o PRD-02 concluído, o app já grava a fotografia do visor (`snapshot.json`) na pasta da DEC-016, que é tudo de que o widget precisa; a sonda da sessão 2 provou o widget sem Xcode.
+
+**Decisão do Professor Cecílio (04/11/2026).** O PRD-04 passa à frente do PRD-03. A alternativa era decidir agora a DEC-009 e seguir a ordem original. A ordem só muda a sequência das fases; nenhum escopo muda. O PRD-03 continua aguardando a DEC-009.
+
 # 2 Decisões pendentes
 
 As duas decisões a seguir dependem do Professor Cecílio e bloqueiam fases específicas: a DEC-009, a fase 3; a DEC-010, a fase 4. A DEC-008 foi decidida na sessão 1 (seção 1.8).
 
 | Número | Assunto | Proposta | Bloqueia |
 |---|---|---|---|
-| DEC-009 | Atalho global padrão | A definir; configurável nos Ajustes | Fase 3 |
+| DEC-009 | Atalho global padrão | A definir; configurável nos Ajustes | Fase 3 (feita depois da fase 4, pela DEC-017) |
 | DEC-010 | Conta Apple Developer para App Group | Resolvida pela DEC-016 (01/11/2026): o widget funciona com assinatura local, sem conta paga | Nenhuma |

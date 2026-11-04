@@ -18,14 +18,14 @@ Cada unidade de trabalho segue o fluxo Clavix (PRD, Plan, Implement, Verify) em 
 
 # 3 Arquitetura ativa
 
-**Estado real em 01/11/2026 (fim da sessão 2):** PRD-01 concluído. PRD-02 em andamento na branch local `feat/prd-02-involucro-macos`: fases 1 (camada web) e 2 (`FinRPNCore`, 17 testes) prontas; falta o app (fase 3) e a verificação (fase 4). O app se chama FinRPN (DEC-014), é compilado por SwiftPM sem Xcode (DEC-015) e grava o estado em `~/Library/Application Support/FinRPN/` (DEC-016).
+**Estado real em 04/11/2026 (fim da sessão 3):** PRD-01 e PRD-02 concluídos. O `FinRPN.app` (DEC-014) é compilado por SwiftPM sem Xcode (DEC-015), montado por `macos/build-app.sh` e grava o estado em `~/Library/Application Support/FinRPN/` (DEC-016). Próximo: PRD-04, o widget, antes do PRD-03 (DEC-017).
 
 | Artefato | Tipo | Propósito |
 |---|---|---|
 | `web/upstream/` | JS (baixado por script, fora do git) | Motor `src/engine/`, desenho SVG `src/ui/`, 204 testes; `web/upstream.patch` retira a marca HP (DEC-013) |
 | `web/mac/` | JS | Ponto de entrada Mac, ponte nativa, teclado, área de transferência |
 | `macos/Sources/FinRPNCore/` | Swift (SwiftPM) | Contrato da ponte, StateStore, mensagens, esquema `finrpn-app://`, script de partida |
-| `macos/Sources/FinRPN/` | Swift (SwiftPM) | AppDelegate, NSPanel, WKWebView, manipuladores do WebKit (PRD-02, fase 3) |
+| `macos/Sources/FinRPN/` | Swift (SwiftPM) | AppDelegate, menu, NSPanel, WKWebView, esquema e ponte (PRD-02) |
 | extensão WidgetKit | Swift, montada por `macos/build-app.sh` | Visor e registradores, somente leitura (PRD-04; ligar com `-Xlinker -e -Xlinker _NSExtensionMain`) |
 
 Interface do motor: `new Calculator(state)`, `press(code)`, `release()`, `display`, `power()`, `onCombo(code, now)`, `serialize()`, `Calculator.deserialize(str)`; persistência por `load(storage)` e `save(storage, calc)`; laço de programa por `tick(calc, now)`. Códigos de tecla em `src/engine/keys.js` (linha e coluna; dígitos usam o próprio dígito).
@@ -47,7 +47,7 @@ JavaScript ES modules sem build e decimal.js (já incluído no upstream); testes
 
 # 6 Padrões e decisões âncora
 
-DEC-001 base malufloyd/hp12c, commit `f1c12e80a9c14757c8bf406386f7ced1f405c3a9`, uso autorizado. DEC-002 upstream intacto. DEC-003 painel flutuante; widget só leitura. DEC-004 estado no App Group, injetado na partida e gravado por mensagem. DEC-005 esquema próprio (`finrpn-app://` pela DEC-014). DEC-006 motor como fonte única. DEC-007 sem ROM nem GPL. DEC-008 teclado (tabela da `ARCHITECTURE.md` §3). DEC-011 tecla `y` para yˣ. DEC-012 upstream fora do repositório, baixado por script. DEC-013 sem marca HP no desenho e no nome (12c Widget). DEC-014 nome FinRPN no app, nos identificadores e no selo «Fin / RPN» (repositório e documentos seguem «12c Widget» até a renomeação). DEC-015 build por SwiftPM e script, sem Xcode. DEC-016 estado em `~/Library/Application Support/FinRPN/`, lido pelo widget por exceção de leitura da sandbox; resolve a DEC-010. Pendente: DEC-009 atalho.
+DEC-001 base malufloyd/hp12c, commit `f1c12e80a9c14757c8bf406386f7ced1f405c3a9`, uso autorizado. DEC-002 upstream intacto. DEC-003 painel flutuante; widget só leitura. DEC-004 estado no App Group, injetado na partida e gravado por mensagem. DEC-005 esquema próprio (`finrpn-app://` pela DEC-014). DEC-006 motor como fonte única. DEC-007 sem ROM nem GPL. DEC-008 teclado (tabela da `ARCHITECTURE.md` §3). DEC-011 tecla `y` para yˣ. DEC-012 upstream fora do repositório, baixado por script. DEC-013 sem marca HP no desenho e no nome (12c Widget). DEC-014 nome FinRPN no app, nos identificadores e no selo «Fin / RPN» (repositório e documentos seguem «12c Widget» até a renomeação). DEC-015 build por SwiftPM e script, sem Xcode. DEC-016 estado em `~/Library/Application Support/FinRPN/`, lido pelo widget por exceção de leitura da sandbox; resolve a DEC-010. DEC-017 PRD-04 (widget) antes do PRD-03. Pendente: DEC-009 atalho.
 
 Zero fallbacks silenciosos: estado ilegível vira `Pr Error` com cópia preservada (comportamento do upstream); mensagem de ponte inválida é rejeitada e registrada; proibido `|| 0` e `?? padrão` em estado e cálculo. Números na ponte trafegam como texto decimal, nunca como `Number`.
 
