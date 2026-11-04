@@ -1,5 +1,5 @@
 # Por onde começar
 
-Continuar o PRD-02 na branch local `feat/prd-02-involucro-macos`: fase 3 (o app FinRPN: `AppDelegate`, `PanelController`, `WebViewHost`, `AppSchemeHandler`, `BridgeController`, `Info.plist` e `macos/build-app.sh`) e fase 4 (verificação na tela com o Professor Cecílio, `verification-report.md`, commit único `[PRD-02]` em `main` e push). Plano em `.clavix/outputs/prd-02-involucro-macos/`. Antes de testar, rode `web/fetch-upstream.sh`; o `swift test` exige o parâmetro `-plugin-path` registrado no `CLAUDE.md` §5. DEC-009 (atalho global) bloqueia só o PRD-03.
+Especificar e executar o PRD-04, o widget de área de trabalho, que passou à frente do PRD-03 pela DEC-017. É uma extensão WidgetKit somente leitura (DEC-003): mostra o `snapshot.json` que o `FinRPN.app` já grava em `~/Library/Application Support/FinRPN/` e abre o painel com um clique. É montada por `macos/build-app.sh` sem Xcode, com os parâmetros da sonda da sessão 2 (DEC-015 e DEC-016). Antes de testar, rode `web/fetch-upstream.sh`; o `swift test` exige o parâmetro `-plugin-path` registrado no `CLAUDE.md` §5. A DEC-009 (atalho global) bloqueia só o PRD-03.
 
-Retomada ativa: `docs/handoffs/RETOMADA-sessao-3-app-macos.md`.
+Retomada ativa: `docs/handoffs/RETOMADA-sessao-4-widget.md`.

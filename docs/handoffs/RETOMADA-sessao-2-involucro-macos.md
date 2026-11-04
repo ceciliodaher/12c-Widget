@@ -1,6 +1,8 @@
 # Retomada Sessão 2 — PRD-02, invólucro macOS
 
-## ▶️ Prompt de arranque (copiar e colar)
+> ⚠️ **CONSUMIDA em 01/11/2026.** A sessão 2 executou este roteiro. Não use o prompt abaixo; a retomada ativa é `RETOMADA-sessao-4-widget.md`.
+
+## Prompt de arranque (neutralizado — não usar)
 
 ```
 Diretório: /Users/ceciliodaher/Documents/git/HP-12c-Widget (projeto 12c Widget; a pasta local mantém o nome antigo).
