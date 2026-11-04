@@ -1,6 +1,6 @@
 # Plano mestre do 12c Widget
 
-> Bússola do projeto. Versão 1.2, de 04/11/2026 (sessão 3). Requisitos em `docs/REQUISITOS.md`; arquitetura em `docs/ARCHITECTURE.md`; decisões em `docs/DECISIONS.md`.
+> Bússola do projeto. Versão 1.3, de 04/11/2026 (sessão 4). Requisitos em `docs/REQUISITOS.md`; arquitetura em `docs/ARCHITECTURE.md`; decisões em `docs/DECISIONS.md`.
 
 # 1 Plano de implementação
 
@@ -20,7 +20,7 @@ Barra de menus, atalho global, Ajustes, abrir no login, copiar e colar. Pronto q
 
 ## 1.4 Fase 4: widget de área de trabalho
 
-Fotografia na pasta do app (DEC-016) e a extensão. Pronto quando o widget mostra o visor atualizado depois de um cálculo e abre o painel com um clique.
+Imagens da calculadora geradas pela página e gravadas na pasta do app (DEC-016, DEC-018), e a extensão. Pronto quando o widget mostra o visor atualizado depois de um cálculo e abre o painel com um clique. Concluída na sessão 4, com o pacote de instalação `.dmg` (PRD-05).
 
 ## 1.5 Fase 5: verificação
 
@@ -46,8 +46,11 @@ Cada fase se desdobra em PRDs no fluxo Clavix (PRD, Plan, Implement, Verify), gu
 | PRD-01 | 1 | Camada web para Mac: upstream, ponte, teclado, área de transferência, página de teste | Concluído na sessão 1 (01/11/2026) |
 | PRD-02 | 2 | Pacote SwiftPM (DEC-015), painel, WebView, esquema `finrpn-app://`, ponte e StateStore | Concluído na sessão 3 (04/11/2026), commit `e561ef9` |
 | PRD-03 | 3 | Barra de menus, atalho global, Ajustes, abrir no login | Previsto; aguarda DEC-009; feito depois do PRD-04 (DEC-017) |
-| PRD-04 | 4 | Fotografia na pasta do app (DEC-016) e extensão WidgetKit | Próximo (DEC-017); viabilidade provada por sonda na sessão 2 |
-| PRD-05 | 5 | Roteiro de verificação com exemplos do manual e comparação com x11-calc | Previsto |
+| PRD-04 | 4 | Imagens da calculadora (DEC-018) e extensão WidgetKit; fechar encerra (DEC-019); ícone do app | Concluído na sessão 4 (04/11/2026), commit `7b8f585` |
+| PRD-05 | 4 | Pacote de instalação `FinRPN-<versão>.dmg` (`macos/make-dmg.sh`) | Concluído na sessão 4 (04/11/2026), commit `c79f70a` |
+| PRD-06 | 5 | Roteiro de verificação com exemplos do manual e comparação com x11-calc | Previsto |
+
+> Retificação da sessão 4: este mapa reservava o número PRD-05 para o roteiro de verificação. A sessão usou o PRD-05 para o pacote de instalação, pedido durante a verificação do PRD-04, e o publicou com esse prefixo; o roteiro de verificação passa a ser o PRD-06.
 
 # 4 Aprendizados
 
@@ -56,4 +59,5 @@ Seção cumulativa, atualizada ao fim de cada sessão.
 - Sessão 0 (01/11/2026): o código de origem já recebe o armazenamento por parâmetro em `load()` e `save()`, o que reduz a adaptação de persistência a um adaptador; o código não tem nenhum tratamento de teclado físico.
 - Sessão 1 (01/11/2026): a suíte do upstream tem 204 testes, e não os 200 contados por leitura; contagem só vale executada. O `pwa.test.js` do upstream confere o hash dos arquivos em cache, então qualquer patch em `src/` precisa recarimbar o `sw.js` (`node tools/stamp-sw.mjs`). No ABNT2 o `^` é tecla morta. O PRD-02 precisa rodar `web/fetch-upstream.sh` antes de empacotar `web/` no app, porque `web/upstream/` não está no git (DEC-012).
 - Sessão 2 (01/11/2026): busca de marca precisa de controle positivo, porque a busca do USPTO pelo endereço devolveu um falso zero e só a busca digitada por «HP 12C» revelou o registro de «12C». Extensão WidgetKit montada sem Xcode trava em `_EXRunningExtension._shared` se não for ligada com `-e _NSExtensionMain`. Widget com assinatura local funciona e lê a pasta do app por exceção de leitura da sandbox. Depois de apagar `.build`, o `swift test` das Command Line Tools exige `-Xswiftc -plugin-path` apontando para o plugin do Swift Testing.
+- Sessão 4 (04/11/2026): o widget não roda JavaScript, mas a página pode converter o próprio SVG em PNG por canvas mesmo num WKWebView sem janela (42 a 92 ms). Dentro da sandbox da extensão, o `FileManager` devolve o contêiner, então a pasta do app sai de `getpwuid`. `Logger.info` não fica guardado; para medir pelo `log show`, use nível notice. O zsh também não divide em palavras uma variável sem aspas (`$T`), e o comando nunca roda: script de teste negativo vai em bash. O macOS desta máquina (Darwin 27) oferece instalar o app ao abrir um `.dmg`; a versão em que isso começou não foi verificada. A armadilha do `log` interno do zsh, registrada na sessão 3, se repetiu e produziu uma explicação errada no relatório do PRD-04, retificada no encerramento: sempre `/usr/bin/log`. Sem Developer ID, o `.pkg` não se assina nem se desinstala, e o `.dmg` é o formato mais simples.
 - Sessão 3 (04/11/2026): NSPanel some quando o app perde o foco, a menos que `hidesOnDeactivate` seja desligado. O `localStorage` do WKWebView sob esquema próprio persiste entre aberturas (preferência de som medida). Sem menu principal montado em código, ⌘C e ⌘V não chegam ao WKWebView. No zsh, `log` é comando interno; o `log show` do sistema exige `/usr/bin/log`. Tipos de erro com inicializador implícito ficam internos ao módulo; o app precisa de `public init`.

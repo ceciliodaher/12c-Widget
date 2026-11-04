@@ -18,7 +18,7 @@ Cada unidade de trabalho segue o fluxo Clavix (PRD, Plan, Implement, Verify) em 
 
 # 3 Arquitetura ativa
 
-**Estado real em 04/11/2026 (fim da sessão 3):** PRD-01 e PRD-02 concluídos. O `FinRPN.app` (DEC-014) é compilado por SwiftPM sem Xcode (DEC-015), montado por `macos/build-app.sh` e grava o estado em `~/Library/Application Support/FinRPN/` (DEC-016). Próximo: PRD-04, o widget, antes do PRD-03 (DEC-017).
+**Estado real em 04/11/2026 (fim da sessão 4):** PRD-01, 02, 04 e 05 concluídos. O `FinRPN.app` 0.4.0 (DEC-014) é compilado por SwiftPM sem Xcode (DEC-015), montado por `macos/build-app.sh` com o widget e o ícone, empacotado em `.dmg` por `macos/make-dmg.sh` e instalado em `/Applications`; grava o estado e as imagens do widget em `~/Library/Application Support/FinRPN/` (DEC-016, DEC-018). Fechar o painel encerra o app (DEC-019). Próximo: PRD-03, que depende da DEC-009.
 
 | Artefato | Tipo | Propósito |
 |---|---|---|
@@ -26,7 +26,8 @@ Cada unidade de trabalho segue o fluxo Clavix (PRD, Plan, Implement, Verify) em 
 | `web/mac/` | JS | Ponto de entrada Mac, ponte nativa, teclado, área de transferência |
 | `macos/Sources/FinRPNCore/` | Swift (SwiftPM) | Contrato da ponte, StateStore, mensagens, esquema `finrpn-app://`, script de partida |
 | `macos/Sources/FinRPN/` | Swift (SwiftPM) | AppDelegate, menu, NSPanel, WKWebView, esquema e ponte (PRD-02) |
-| extensão WidgetKit | Swift, montada por `macos/build-app.sh` | Visor e registradores, somente leitura (PRD-04; ligar com `-Xlinker -e -Xlinker _NSExtensionMain`) |
+| `macos/Sources/FinRPNWidget/`, `macos/Widget/` | Swift (SwiftPM), montada por `macos/build-app.sh` em `Contents/PlugIns` | Widget somente leitura: `lcd.png` no pequeno, `calc.png` no médio e no grande (DEC-018); ligado com `-Xlinker -e -Xlinker _NSExtensionMain` |
+| `web/mac/widget-image.js` | JS | Converte o SVG da página em `calc.png` e `lcd.png` e envia pela mensagem `image` da ponte |
 
 Interface do motor: `new Calculator(state)`, `press(code)`, `release()`, `display`, `power()`, `onCombo(code, now)`, `serialize()`, `Calculator.deserialize(str)`; persistência por `load(storage)` e `save(storage, calc)`; laço de programa por `tick(calc, now)`. Códigos de tecla em `src/engine/keys.js` (linha e coluna; dígitos usam o próprio dígito).
 
@@ -40,14 +41,16 @@ JavaScript ES modules sem build e decimal.js (já incluído no upstream); testes
 |---|---|---|
 | Instalar o motor | `web/fetch-upstream.sh` (cópia privada: `UPSTREAM_REPO=<bundle> web/fetch-upstream.sh`) | Disponível |
 | Testes do upstream | `cd web/upstream && node --test 'tests/**/*.test.js'` | Disponível (204) |
-| Testes da camada Mac | `node --test 'web/tests/**/*.test.js'` | Disponível (30) |
-| Testes Swift | `cd macos && swift test -Xswiftc -plugin-path -Xswiftc /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing` | Disponível (17). O parâmetro é obrigatório: sem ele, o SwiftPM das Command Line Tools não acha o plugin `TestingMacros` (medido na sessão 2) |
+| Testes da camada Mac | `node --test 'web/tests/**/*.test.js'` | Disponível (39) |
+| Testes Swift | `cd macos && swift test -Xswiftc -plugin-path -Xswiftc /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing` | Disponível (24). O parâmetro é obrigatório: sem ele, o SwiftPM das Command Line Tools não acha o plugin `TestingMacros` (medido na sessão 2) |
 | Página no navegador | `cd web && python3 -m http.server 8123` e abrir `http://localhost:8123/mac/index-mac.html` | Disponível |
-| Build do app | `macos/build-app.sh` (gera `macos/build/FinRPN.app`; abrir com `open macos/build/FinRPN.app`) | Disponível |
+| Build do app | `macos/build-app.sh` (gera `macos/build/FinRPN.app`, com o widget e o ícone) | Disponível |
+| Pacote de instalação | `macos/make-dmg.sh` (gera `macos/build/FinRPN-<versão>.dmg`) | Disponível. Abrir a cópia de `macos/build/` a registra de novo e duplica o widget na galeria: depois de testar, `lsregister -u` sobre ela |
+| Registros do sistema | `/usr/bin/log show` ou `/usr/bin/log stream`, sempre com o caminho | No zsh, `log` é comando interno e devolve vazio |
 
 # 6 Padrões e decisões âncora
 
-DEC-001 base malufloyd/hp12c, commit `f1c12e80a9c14757c8bf406386f7ced1f405c3a9`, uso autorizado. DEC-002 upstream intacto. DEC-003 painel flutuante; widget só leitura. DEC-004 estado no App Group, injetado na partida e gravado por mensagem. DEC-005 esquema próprio (`finrpn-app://` pela DEC-014). DEC-006 motor como fonte única. DEC-007 sem ROM nem GPL. DEC-008 teclado (tabela da `ARCHITECTURE.md` §3). DEC-011 tecla `y` para yˣ. DEC-012 upstream fora do repositório, baixado por script. DEC-013 sem marca HP no desenho e no nome (12c Widget). DEC-014 nome FinRPN no app, nos identificadores e no selo «Fin / RPN» (repositório e documentos seguem «12c Widget» até a renomeação). DEC-015 build por SwiftPM e script, sem Xcode. DEC-016 estado em `~/Library/Application Support/FinRPN/`, lido pelo widget por exceção de leitura da sandbox; resolve a DEC-010. DEC-017 PRD-04 (widget) antes do PRD-03. Pendente: DEC-009 atalho.
+DEC-001 base malufloyd/hp12c, commit `f1c12e80a9c14757c8bf406386f7ced1f405c3a9`, uso autorizado. DEC-002 upstream intacto. DEC-003 painel flutuante; widget só leitura. DEC-004 estado no App Group, injetado na partida e gravado por mensagem. DEC-005 esquema próprio (`finrpn-app://` pela DEC-014). DEC-006 motor como fonte única. DEC-007 sem ROM nem GPL. DEC-008 teclado (tabela da `ARCHITECTURE.md` §3). DEC-011 tecla `y` para yˣ. DEC-012 upstream fora do repositório, baixado por script. DEC-013 sem marca HP no desenho e no nome (12c Widget). DEC-014 nome FinRPN no app, nos identificadores e no selo «Fin / RPN» (repositório e documentos seguem «12c Widget» até a renomeação). DEC-015 build por SwiftPM e script, sem Xcode. DEC-016 estado em `~/Library/Application Support/FinRPN/`, lido pelo widget por exceção de leitura da sandbox; resolve a DEC-010. DEC-017 PRD-04 (widget) antes do PRD-03. DEC-018 widget com a imagem da calculadora gerada pela página (pequeno: visor; médio e grande: calculadora). DEC-019 fechar o painel encerra o app. Pendente: DEC-009 atalho.
 
 Zero fallbacks silenciosos: estado ilegível vira `Pr Error` com cópia preservada (comportamento do upstream); mensagem de ponte inválida é rejeitada e registrada; proibido `|| 0` e `?? padrão` em estado e cálculo. Números na ponte trafegam como texto decimal, nunca como `Number`.
 
